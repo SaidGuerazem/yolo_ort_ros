@@ -40,6 +40,20 @@ Export an end-to-end ONNX model (with NMS included) using Ultralytics:
 
 ```bash
 yolo export model=best_model.pt format=onnx imgsz=640 opset=17 simplify=True nms=True batch=1
-```
+
 This node expects the ONNX output to be in an end-to-end detection format like:
 (N, 6) or (1, N, 6) where each row is:
+
+```csharp
+[x1, y1, x2, y2, score, class_id]
+
+
+
+## Running the node
+```bash
+ros2 run yolo_ort_ros yolo_ort_node --ros-args \
+  -p model_path:=/abs/path/to/model.onnx \
+  -p image_topic:=/flir_camera/image_raw \
+  -p centroids_topic:=/flir_camera/centroids \
+  -p conf_thres:=0.7 \
+  -p use_gpu:=true

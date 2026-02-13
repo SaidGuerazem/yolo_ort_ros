@@ -40,3 +40,6 @@ Export an end-to-end ONNX model (with NMS included) using Ultralytics:
 
 ```bash
 yolo export model=best_model.pt format=onnx imgsz=640 opset=17 simplify=True nms=True batch=1
+```
+This node expects the ONNX output to be in an end-to-end detection format like:
+(N, 6) or (1, N, 6) where each row is:
